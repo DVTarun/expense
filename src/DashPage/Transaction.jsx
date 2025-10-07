@@ -61,7 +61,7 @@ const [typeFilter, setTypeFilter] = useState("");
       }
 
       // Fetch full name
-      fetch("http://localhost:2544/user/getfullname", {
+      fetch("http://localhost:8080/myEB/user/getfullname", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ csrid: token }),
@@ -77,7 +77,7 @@ const [typeFilter, setTypeFilter] = useState("");
         });
 
       // Fetch transactions
-      fetch(`http://localhost:2544/user/transactionsfull/${email}`)
+      fetch(http://localhost:8080/myEB/transactionsfull/${email})
         .then((res) => res.json())
         .then((data) => {
           setExpenses(data);
@@ -104,7 +104,7 @@ const [confirmDeleteId, setConfirmDeleteId] = useState(null);
       const transactionToDelete = expenses.find((expense) => expense.id === id);
   
       // Attempt to delete the transaction from the server
-      const res = await fetch(`http://localhost:2544/user/deleteTransaction/${id}`, {
+      const res = await fetch(http://localhost:8080/myEB1/user/deleteTransaction/${id}, {
         method: "DELETE",
       });
       const text = await res.text();
@@ -170,7 +170,7 @@ const [confirmDeleteId, setConfirmDeleteId] = useState(null);
     const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
     const fileData = new Blob([excelBuffer], { type: "application/octet-stream" });
   
-    saveAs(fileData, `Transactions_${fromDate || "start"}_to_${toDate || "end"}.xlsx`);
+    saveAs(fileData, Transactions_${fromDate || "start"}_to_${toDate || "end"}.xlsx);
   
     // Reset date filters and close modal
     setFromDate("");
@@ -200,7 +200,7 @@ const [confirmDeleteId, setConfirmDeleteId] = useState(null);
     <div className="dashboard1">
       {/* Sidebar */}
       <aside
-        className={`sidebar ${isSidebarOpen ? "open" : ""}`}
+        className={sidebar ${isSidebarOpen ? "open" : ""}}
         onMouseEnter={() => setIsSidebarOpen(true)}
         onMouseLeave={() => setIsSidebarOpen(false)}
       >
@@ -310,7 +310,7 @@ const [confirmDeleteId, setConfirmDeleteId] = useState(null);
     <option value="Food">🍔 Food</option>
     <option value="Shopping">🛍 Shopping</option>
     <option value="Health">💊 Health</option>
-    <option value="Travel">✈️ Travel</option>
+    <option value="Travel">✈ Travel</option>
     <option value="Salary">💼 Salary</option>
     <option value="Freelance">🧑‍💻 Freelance</option>
   </select>
@@ -388,16 +388,16 @@ const [confirmDeleteId, setConfirmDeleteId] = useState(null);
               return (
                 <tr key={index} className="table__row">
                   <td className="table__cell">{formattedDate}</td>
-                  <td className="table__cell table__cell--category">{expense.category}</td>
+                  <td className="table_cell table_cell--category">{expense.category}</td>
                   <td className="table__cell">{expense.paymentType}</td>
                   <td className="table__cell">
                     {expense.note && expense.note.trim() !== '' ? expense.note : ' - -'}
                   </td>
                   <td className="table__cell">{expense.transactionType}</td>
-                  <td className="table__cell table__cell--amount">
+                  <td className="table_cell table_cell--amount">
                     ₹{parseFloat(expense.amount).toFixed(2)}
                   </td>
-                  <td className="table__cell table__cell--action">
+                  <td className="table_cell table_cell--action">
                   <FaTrash
   style={{ cursor: "pointer", color: "#ff4d4f", textAlign: "left" }}
   onClick={() => setConfirmDeleteId(expense.id)}
@@ -406,7 +406,7 @@ const [confirmDeleteId, setConfirmDeleteId] = useState(null);
 
                    
                   </td>
-                  <td className="table__cell table__cell--action">
+                  <td className="table_cell table_cell--action">
                   <FaEdit
   style={{ cursor: "pointer", color: "#007bff", textAlign: "left" }}
   onClick={() => {
@@ -483,7 +483,7 @@ const [confirmDeleteId, setConfirmDeleteId] = useState(null);
           };
 
           try {
-            const response = await fetch("http://localhost:2544/user/updateTransaction", {
+            const response = await fetch("http://localhost:8080/myEB/user/updateTransaction", {
               method: "PUT",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(updatedData),
